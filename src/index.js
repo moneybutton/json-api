@@ -1,4 +1,3 @@
-
 import JsonApiError from './json-api-error'
 
 export function toResourceObject (id, type, attributes) {
@@ -34,7 +33,9 @@ export function fromResourceObject (resource, resourceType) {
     throw new JsonApiError('Missing resource type.')
   }
   if (type !== resourceType) {
-    throw new JsonApiError(`Wrong resource type. Expected ${resourceType} but found ${type}.`)
+    throw new JsonApiError(
+      `Wrong resource type. Expected ${resourceType} but found ${type}.`
+    )
   }
   return { id, ...attributes }
 }
@@ -45,21 +46,23 @@ export function fromNewResourceObject (resource, resourceType) {
     throw new JsonApiError('Missing resource type.')
   }
   if (type !== resourceType) {
-    throw new JsonApiError(`Wrong resource type. Expected ${resourceType} but found ${type}.`)
+    throw new JsonApiError(
+      `Wrong resource type. Expected ${resourceType} but found ${type}.`
+    )
   }
   return attributes
 }
 
 export function fromResourceObjectsOfType (resources, resourceType) {
   return resources
-    .filter((resource) => resource.type === resourceType)
-    .map((resource) => fromResourceObject(resource, resourceType))
+    .filter(resource => resource.type === resourceType)
+    .map(resource => fromResourceObject(resource, resourceType))
 }
 
 export function fromNewResourceObjectsOfType (resources, resourceType) {
   return resources
-    .filter((resource) => resource.type === resourceType)
-    .map((resource) => fromNewResourceObject(resource, resourceType))
+    .filter(resource => resource.type === resourceType)
+    .map(resource => fromNewResourceObject(resource, resourceType))
 }
 
 export function toJsonApiData (data) {
@@ -75,7 +78,7 @@ export function toJsonApiErrors (errors) {
 }
 
 export function toJsonApiError (error) {
-  return toJsonApiErrors([ error ])
+  return toJsonApiErrors([error])
 }
 
 export function toJsonApi (members) {
