@@ -4,7 +4,7 @@
   "description": "MoneyButton isomorphic JSON API utilities.",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "standard",
+    "lint": "standard --parser=babel-eslint",
     "pretest": "yarn lint",
     "test": "yarn test:mocha",
     "test:mocha": "NODE_ENV=test mocha -R progress",
@@ -21,6 +21,7 @@
     "query-string": "6.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "8.2.5",
     "@babel/cli": "7.0.0-beta.47",
     "@babel/core": "7.0.0-beta.47",
     "@babel/plugin-transform-runtime": "7.0.0-beta.47",
@@ -31,6 +32,11 @@
     "standard": "11.0.1"
   },
   "standard": {
-    "globals": ["afterEach", "beforeEach", "describe", "it"]
+    "globals": [
+      "afterEach",
+      "beforeEach",
+      "describe",
+      "it"
+    ]
   }
 }
