@@ -108,3 +108,16 @@ export function fromJsonApiDataIncluding ({ data, included }) {
 }
 
 export { JsonApiError }
+
+export function fromJsonApiPagination ({ page, sort }) {
+  return { ...page, sort }
+}
+
+export function toJsonApiPagination (pagination, data) {
+  return toJsonApi({
+    meta: {
+      'total-pages': pagination.pageCount
+    },
+    data
+  })
+}
