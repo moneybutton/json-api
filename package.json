@@ -2,15 +2,23 @@
   "name": "mb-json-api",
   "version": "0.1.0",
   "description": "MoneyButton isomorphic JSON API utilities.",
-  "main": "lib/index.js",
+  "main": "dist/mb-json-api.cjs.js",
+  "module": "dist/mb-json-api.esm.js",
+  "browser": "dist/mb-json-api.umd.js",
+  "library": "MoneyButtonJsonApi",
+  "files": ["dist/**"],
   "scripts": {
     "lint": "standard --parser=babel-eslint",
     "pretest": "yarn lint",
     "test": "yarn test:mocha",
     "test:mocha": "NODE_ENV=test mocha -R progress",
-    "build": "babel src -d lib",
-    "build:watch": "babel -w src -d lib",
-    "dev": "NODE_ENV=dev yarn build:watch"
+    "build":
+      "concurrently --names 'browser,node' 'yarn build:browser' 'yarn build:node'",
+    "build:watch":
+      "concurrently --names 'browser,node' 'yarn build:browser -w' 'yarn build:node -w'",
+    "build:browser": "webpack",
+    "build:node": "rollup -c",
+    "dev": "yarn build:watch"
   },
   "repository": "https://github.com/yoursnetwork/yours",
   "author": "Yours Inc.",
@@ -21,22 +29,23 @@
     "query-string": "6.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.5",
     "@babel/cli": "7.0.0-beta.47",
     "@babel/core": "7.0.0-beta.47",
+    "@babel/plugin-external-helpers": "7.0.0-beta.55",
     "@babel/plugin-transform-runtime": "7.0.0-beta.47",
     "@babel/preset-env": "7.0.0-beta.47",
-    "@babel/register": "7.0.0-beta.47",
+    "babel-eslint": "8.2.5",
+    "babel-loader": "8.0.0-beta.4",
+    "concurrently": "3.6.1",
     "mocha": "5.2.0",
+    "rollup-plugin-babel": "4.0.0-beta.7",
+    "rollup": "0.63.4",
     "should": "13.2.1",
-    "standard": "11.0.1"
+    "standard": "11.0.1",
+    "webpack-cli": "3.1.0",
+    "webpack": "4.16.3"
   },
   "standard": {
-    "globals": [
-      "afterEach",
-      "beforeEach",
-      "describe",
-      "it"
-    ]
+    "globals": ["afterEach", "beforeEach", "describe", "it"]
   }
 }
