@@ -10,15 +10,17 @@
   "scripts": {
     "lint": "standard --parser=babel-eslint",
     "pretest": "yarn lint",
-    "test": "yarn test:mocha",
+    "test": "NODE_ENV=test dotenv -e ../../.env.test -- yarn test:mocha",
     "test:mocha": "NODE_ENV=test mocha -R progress",
     "build":
       "concurrently --names 'browser,node' 'yarn build:browser' 'yarn build:node'",
+    "build:dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build",
+    "build:prod": "NODE_ENV=prod dotenv -e ../../.env.prod -- yarn build",
     "build:watch":
       "concurrently --names 'browser,node' 'yarn build:browser -w' 'yarn build:node -w'",
     "build:browser": "webpack",
     "build:node": "rollup -c",
-    "dev": "yarn build:watch"
+    "dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build:watch"
   },
   "repository": "https://github.com/yoursnetwork/yours",
   "author": "Yours Inc.",
@@ -37,6 +39,7 @@
     "babel-eslint": "8.2.5",
     "babel-loader": "8.0.0-beta.4",
     "concurrently": "3.6.1",
+    "dotenv-cli": "1.4.0",
     "mocha": "5.2.0",
     "rollup-plugin-babel": "4.0.0-beta.7",
     "rollup": "0.63.4",
