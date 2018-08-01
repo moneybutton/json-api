@@ -116,7 +116,8 @@ export function fromJsonApiPagination ({ page, sort }) {
 export function toJsonApiPagination (pagination, data) {
   return toJsonApi({
     meta: {
-      'total-pages': pagination.pageCount
+      'total-pages': pagination.pageCount,
+      'total-items': pagination.rowCount
     },
     data
   })
