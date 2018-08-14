@@ -22,7 +22,7 @@
     "build:node": "rollup -c",
     "dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build:watch"
   },
-  "repository": "https://github.com/yoursnetwork/yours",
+  "repository": "https://github.com/moneybutton/yours",
   "author": "Yours Inc.",
   "license": "UNLICENSED",
   "private": true,
