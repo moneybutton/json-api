@@ -1,7 +1,7 @@
 {
   "name": "mb-json-api",
   "version": "0.1.0",
-  "description": "MoneyButton isomorphic JSON API utilities.",
+  "description": "Money Button isomorphic JSON API utilities.",
   "main": "dist/mb-json-api.cjs.js",
   "module": "dist/mb-json-api.esm.js",
   "browser": "dist/mb-json-api.umd.js",
