@@ -4,27 +4,25 @@
   "description": "Money Button isomorphic JSON API utilities.",
   "main": "dist/mb-json-api.cjs.js",
   "module": "dist/mb-json-api.esm.js",
-  "browser": "dist/mb-json-api.umd.js",
+  "unpkg": "dist/mb-json-api.iife.js",
   "library": "MoneyButtonJsonApi",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "lint": "standard --parser=babel-eslint",
     "pretest": "yarn lint",
     "test": "NODE_ENV=test dotenv -e ../../.env.test -- yarn test:mocha",
     "test:mocha": "NODE_ENV=test mocha -R progress",
-    "build":
-      "concurrently --names 'browser,node' 'yarn build:browser' 'yarn build:node'",
+    "build": "rollup -c",
     "build:dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build",
     "build:prod": "NODE_ENV=production dotenv -e ../../.env.prod -- yarn build",
-    "build:watch":
-      "concurrently --names 'browser,node' 'yarn build:browser -w' 'yarn build:node -w'",
-    "build:browser": "webpack",
-    "build:node": "rollup -c",
+    "build:watch": "yarn build -w",
     "dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build:watch"
   },
   "repository": "https://github.com/moneybutton/yours",
   "author": "Yours Inc.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.47",
@@ -33,7 +31,6 @@
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.47",
     "@babel/core": "7.0.0-beta.47",
-    "@babel/plugin-external-helpers": "7.0.0-beta.55",
     "@babel/plugin-transform-runtime": "7.0.0-beta.47",
     "@babel/preset-env": "7.0.0-beta.47",
     "babel-eslint": "8.2.5",
@@ -42,13 +39,19 @@
     "dotenv-cli": "1.4.0",
     "mocha": "5.2.0",
     "rollup": "0.63.4",
-    "rollup-plugin-babel": "4.0.0-beta.7",
+    "rollup-plugin-babel": "4.0.0-beta.8",
+    "rollup-plugin-babel-minify": "6.0.0",
+    "rollup-plugin-commonjs": "9.1.8",
+    "rollup-plugin-node-resolve": "3.4.0",
     "should": "13.2.1",
-    "standard": "11.0.1",
-    "webpack": "4.16.3",
-    "webpack-cli": "3.1.0"
+    "standard": "11.0.1"
   },
   "standard": {
-    "globals": ["afterEach", "beforeEach", "describe", "it"]
+    "globals": [
+      "afterEach",
+      "beforeEach",
+      "describe",
+      "it"
+    ]
   }
 }

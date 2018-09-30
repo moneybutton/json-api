@@ -1,12 +1,10 @@
 import babel from 'rollup-plugin-babel'
+import commonJS from 'rollup-plugin-commonjs'
+import fs from 'fs'
+import minify from 'rollup-plugin-babel-minify'
 import path from 'path'
 import pkg from './package.json'
-
-function isExternal (candidate) {
-  return Object.keys(pkg.dependencies).some(dependency => {
-    return candidate.startsWith(dependency)
-  })
-}
+import resolve from 'rollup-plugin-node-resolve'
 
 export default [
   {
@@ -26,8 +24,6 @@ export default [
     ],
     plugins: [
       babel({
-        runtimeHelpers: true,
-        exclude: ['node_modules/**'],
         presets: [
           [
             '@babel/preset-env',
@@ -38,12 +34,55 @@ export default [
               }
             }
           ]
-        ],
-        plugins: [
-          '@babel/plugin-external-helpers',
-          '@babel/plugin-transform-runtime'
         ]
+      })
+    ]
+  },
+  {
+    input: path.resolve(__dirname, 'src', 'index.js'),
+    output: [
+      {
+        file: pkg.unpkg,
+        format: 'iife',
+        name: pkg.library,
+        sourcemap: true
+      }
+    ],
+    plugins: [
+      resolve(),
+      commonJS(),
+      babel({
+        exclude: ['../../node_modules/**', 'node_modules/**'],
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              modules: false,
+              targets: {
+                browsers: ['> 2%']
+              }
+            }
+          ]
+        ],
+        runtimeHelpers: true,
+        plugins: ['@babel/plugin-transform-runtime']
+      }),
+      minify({
+        comments: false,
+        banner: getBanner(),
+        bannerNewLine: true
       })
     ]
   }
 ]
+
+function isExternal (candidate) {
+  return Object.keys(pkg.dependencies).some(dependency => {
+    return candidate.startsWith(dependency)
+  })
+}
+
+function getBanner () {
+  const filePath = path.resolve(__dirname, 'src', 'banner.js')
+  return fs.readFileSync(filePath).toString().trim()
+}
