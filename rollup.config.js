@@ -1,10 +1,15 @@
 import babel from 'rollup-plugin-babel'
+import builtins from 'rollup-plugin-node-builtins'
 import commonJS from 'rollup-plugin-commonjs'
 import fs from 'fs'
+import globals from 'rollup-plugin-node-globals'
 import minify from 'rollup-plugin-babel-minify'
 import path from 'path'
 import pkg from './package.json'
+import replace from 'rollup-plugin-replace'
 import resolve from 'rollup-plugin-node-resolve'
+
+const PRODUCTION_BUILD = process.env.NODE_ENV === 'production'
 
 export default [
   {
@@ -23,6 +28,7 @@ export default [
       }
     ],
     plugins: [
+      replace(getReplacements()),
       babel({
         presets: [
           [
@@ -30,15 +36,16 @@ export default [
             {
               modules: false,
               targets: {
-                node: 'current'
+                node: '8'
               }
             }
           ]
-        ]
+        ],
+        plugins: getBabelPlugins()
       })
     ]
   },
-  {
+  ...(PRODUCTION_BUILD ? [{
     input: path.resolve(__dirname, 'src', 'index.js'),
     output: [
       {
@@ -48,9 +55,27 @@ export default [
         sourcemap: true
       }
     ],
+    context: 'window',
     plugins: [
-      resolve(),
-      commonJS(),
+      replace(getReplacements()),
+      globals(),
+      builtins(),
+      resolve({
+        browser: true,
+        preferBuiltins: true
+      }),
+      commonJS({
+        namedExports: {
+          '../../node_modules/loglevel/lib/loglevel.js': [
+            'setLevel',
+            'trace',
+            'debug',
+            'info',
+            'warn',
+            'error'
+          ]
+        }
+      }),
       babel({
         exclude: ['../../node_modules/**', 'node_modules/**'],
         presets: [
@@ -65,7 +90,7 @@ export default [
           ]
         ],
         runtimeHelpers: true,
-        plugins: ['@babel/plugin-transform-runtime']
+        plugins: getBabelPlugins({ includeTransformRuntime: true })
       }),
       minify({
         comments: false,
@@ -73,7 +98,7 @@ export default [
         bannerNewLine: true
       })
     ]
-  }
+  }] : [])
 ]
 
 function isExternal (candidate) {
@@ -85,4 +110,22 @@ function isExternal (candidate) {
 function getBanner () {
   const filePath = path.resolve(__dirname, 'src', 'banner.js')
   return fs.readFileSync(filePath).toString().trim()
+}
+
+function getBabelPlugins (options = {}) {
+  const plugins = [
+    '@babel/plugin-proposal-object-rest-spread'
+  ]
+  if (options.includeTransformRuntime) {
+    plugins.push('@babel/plugin-transform-runtime')
+  }
+  return plugins
+}
+
+function getReplacements () {
+  const replacements = {}
+  for (const key in process.env) {
+    replacements[`process.env.${key}`] = JSON.stringify(process.env[key])
+  }
+  return replacements
 }
