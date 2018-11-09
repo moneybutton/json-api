@@ -1,6 +1,6 @@
 {
   "name": "@moneybutton/json-api",
-  "version": "0.1.0",
+  "version": "0.1.8",
   "description": "Money Button isomorphic JSON API utilities.",
   "main": "dist/moneybutton.json-api.cjs.js",
   "module": "dist/moneybutton.json-api.esm.js",
@@ -18,11 +18,16 @@
     "build:dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build",
     "build:prod": "NODE_ENV=production dotenv -e ../../.env.prod -- yarn build",
     "build:watch": "yarn build -w",
-    "dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build:watch"
+    "dev": "NODE_ENV=dev dotenv -e ../../.env.dev -- yarn build:watch",
+    "predocs": "jsdoc -d docs src/",
+    "docs": "cd docs && http-server ."
   },
-  "repository": "https://github.com/moneybutton/yours",
+  "repository": "https://github.com/moneybutton/json-api",
   "author": "Yours Inc.",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@babel/runtime": "7.0.0",
     "query-string": "6.1.0"
@@ -36,6 +41,7 @@
     "babel-eslint": "9.0.0",
     "concurrently": "3.6.1",
     "dotenv-cli": "1.4.0",
+    "http-server": "0.11.1",
     "mocha": "5.2.0",
     "rollup": "0.66.6",
     "rollup-plugin-babel": "4.0.3",
@@ -54,6 +60,9 @@
       "beforeEach",
       "describe",
       "it"
+    ],
+    "ignore": [
+      "docs/"
     ]
   }
 }
