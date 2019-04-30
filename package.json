@@ -1,6 +1,6 @@
 {
   "name": "@moneybutton/json-api",
-  "version": "0.21.7",
+  "version": "0.21.8",
   "description": "Money Button isomorphic JSON API utilities.",
   "main": "dist/moneybutton.json-api.cjs.js",
   "module": "dist/moneybutton.json-api.esm.js",
