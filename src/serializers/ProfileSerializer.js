@@ -7,7 +7,6 @@ const ProfileSerializer = new Serializer('profiles', {
     'name',
     'defaultCurrency',
     'defaultLanguage',
-    'receiveEmails',
     'bio',
     'email',
     'primaryPaymail'
