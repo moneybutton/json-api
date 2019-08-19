@@ -1,5 +1,9 @@
 import JsonApiError from './json-api-error'
 
+import * as jsonSerializers from './serializers/index'
+export { jsonSerializers }
+export { JsonDeserializer } from './deserializer'
+
 export function toResourceObject (id, type, attributes) {
   if (typeof id !== 'string') {
     throw new JsonApiError('Missing resource id.')

@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.5.5",
+    "jsonapi-serializer": "3.6.4",
     "query-string": "6.1.0"
   },
   "devDependencies": {
