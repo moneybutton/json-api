@@ -7,13 +7,15 @@ const ProfileSerializer = new Serializer('profiles', {
     'defaultCurrency',
     'defaultLanguage',
     'bio',
-    'primaryPaymail'
+    'primaryPaymail',
+    'avatarUrl'
   ],
   transform (record) {
     const handle = record.activeHandle
     return {
       ...record,
-      primaryPaymail: `${handle.localPart}@${handle.domain}`
+      primaryPaymail: `${handle.localPart}@${handle.domain}`,
+      avatarUrl: `https://www.gravatar.com/avatar/${record.gravatarKey}?d=identicon` // This is done here because right no we have no notion of avatar in our backend.
     }
   }
 })
