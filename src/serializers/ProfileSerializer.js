@@ -3,12 +3,10 @@ import { Serializer } from 'jsonapi-serializer'
 const ProfileSerializer = new Serializer('profiles', {
   attributes: [
     'createdAt',
-    'email',
     'name',
     'defaultCurrency',
     'defaultLanguage',
     'bio',
-    'email',
     'primaryPaymail'
   ],
   transform (record) {
