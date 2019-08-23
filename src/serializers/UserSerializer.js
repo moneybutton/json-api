@@ -21,7 +21,13 @@ const UserSerializer = new Serializer('users', {
     'activeHandle'
   ],
   typeForAttribute (attribute, record) {
-    return 'handles'
+    if (attribute === 'users') {
+      return 'users'
+    } else if (attribute === 'activeHandle') {
+      return 'handles'
+    } else {
+      throw new Error(`Unknown property ${attribute}`)
+    }
   },
   activeHandle: {
     ref: 'id',
