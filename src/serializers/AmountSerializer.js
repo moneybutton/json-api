@@ -1,6 +1,6 @@
 import { Serializer } from 'jsonapi-serializer'
 
-const AmountSerializer = new Serializer('users', {
+const AmountSerializer = new Serializer('amounts', {
   attributes: [
     'amount',
     'currency',
