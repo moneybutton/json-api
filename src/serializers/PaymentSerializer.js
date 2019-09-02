@@ -31,7 +31,8 @@ const PaymentSerializer = new Serializer('payments', {
     'feeAmountSatoshis',
     'changeAmountUsd',
     'changeAmountSatoshis',
-    'paymentOutputs'
+    'paymentOutputs',
+    'rawtx'
   ],
   typeForAttribute (attribute, record) {
     if (attribute === 'payments') {
