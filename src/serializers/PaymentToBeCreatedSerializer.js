@@ -1,19 +1,11 @@
 import { Serializer } from 'jsonapi-serializer'
 
-const extractPaymailFrom = (paymentOutput) => {
-  if (paymentOutput.user && paymentOutput.user.activeHandle) {
-    const { localPart, domain } = paymentOutput.user.activeHandle
-    return `${localPart}@${domain}`
-  } else {
-    return null
-  }
-}
-
-const PaymentSerializer = new Serializer('payments', {
+const PaymentToBeCreatedSerializer = new Serializer('payments', {
   attributes: [
     'createdAt',
     'userId',
     'txid',
+    'clientIdentifier',
     'normalizedTxid',
     'amount',
     'currency',
@@ -32,7 +24,6 @@ const PaymentSerializer = new Serializer('payments', {
     'changeAmountUsd',
     'changeAmountSatoshis',
     'paymentOutputs',
-    'rawtx',
     'cryptoOperations'
   ],
   typeForAttribute (attribute, record) {
@@ -47,7 +38,7 @@ const PaymentSerializer = new Serializer('payments', {
     }
   },
   paymentOutputs: {
-    ref: 'id',
+    ref: 'index',
     attributes: [
       'createdAt',
       'to',
@@ -66,8 +57,9 @@ const PaymentSerializer = new Serializer('payments', {
     ref: 'id',
     attributes: [
       'name',
-      'action',
+      'method',
       'data',
+      'dateEncoding',
       'value',
       'path',
       'algorithm'
@@ -76,11 +68,10 @@ const PaymentSerializer = new Serializer('payments', {
   transform: function (record) {
     return {
       ...record,
-      paymentOutputs: record.paymentOutputs.map(po => {
-        extractPaymailFrom(po)
+      paymentOutputs: record.paymentOutputs.map((po, index) => {
         return {
           ...po,
-          userPaymail: extractPaymailFrom(po)
+          index: index.toString()
         }
       }),
       cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, id: index + 1 }))
@@ -88,4 +79,4 @@ const PaymentSerializer = new Serializer('payments', {
   }
 })
 
-export { PaymentSerializer }
+export { PaymentToBeCreatedSerializer }
