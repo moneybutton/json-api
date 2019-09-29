@@ -32,16 +32,13 @@ const PaymentSerializer = new Serializer('payments', {
     'changeAmountUsd',
     'changeAmountSatoshis',
     'paymentOutputs',
-    'rawtx',
-    'cryptoOperations'
+    'rawtx'
   ],
   typeForAttribute (attribute, record) {
     if (attribute === 'payments') {
       return 'payments'
     } else if (attribute === 'paymentOutputs') {
       return 'payment-outputs'
-    } else if (attribute === 'cryptoOperations') {
-      return 'crypto-operations'
     } else {
       throw new Error('unrecognize relation')
     }
@@ -62,17 +59,6 @@ const PaymentSerializer = new Serializer('payments', {
       'userPaymail'
     ]
   },
-  cryptoOperations: {
-    ref: 'id',
-    attributes: [
-      'name',
-      'action',
-      'data',
-      'value',
-      'path',
-      'algorithm'
-    ]
-  },
   transform: function (record) {
     return {
       ...record,
@@ -82,8 +68,7 @@ const PaymentSerializer = new Serializer('payments', {
           ...po,
           userPaymail: extractPaymailFrom(po)
         }
-      }),
-      cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, id: index + 1 }))
+      })
     }
   }
 })
