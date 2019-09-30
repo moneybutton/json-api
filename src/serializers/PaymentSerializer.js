@@ -1,14 +1,5 @@
 import { Serializer } from 'jsonapi-serializer'
 
-const extractPaymailFrom = (paymentOutput) => {
-  if (paymentOutput.user && paymentOutput.user.activeHandle) {
-    const { localPart, domain } = paymentOutput.user.activeHandle
-    return `${localPart}@${domain}`
-  } else {
-    return null
-  }
-}
-
 const PaymentSerializer = new Serializer('payments', {
   attributes: [
     'createdAt',
@@ -59,7 +50,13 @@ const PaymentSerializer = new Serializer('payments', {
       'address',
       'script',
       'amountUsd',
-      'userPaymail'
+      'paymailDt',
+      'paymailPubkey',
+      'paymailPurpose',
+      'paymailRecipientHandle',
+      'paymailSenderHandle',
+      'paymailSenderName',
+      'paymailSignature'
     ]
   },
   cryptoOperations: {
@@ -77,10 +74,8 @@ const PaymentSerializer = new Serializer('payments', {
     return {
       ...record,
       paymentOutputs: record.paymentOutputs.map(po => {
-        extractPaymailFrom(po)
         return {
-          ...po,
-          userPaymail: extractPaymailFrom(po)
+          ...po
         }
       }),
       cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, id: index + 1 }))

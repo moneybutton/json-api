@@ -50,7 +50,13 @@ const PaymentToBeCreatedSerializer = new Serializer('payments', {
       'address',
       'script',
       'amountUsd',
-      'userPaymail'
+      'paymailDt',
+      'paymailPubkey',
+      'paymailPurpose',
+      'paymailRecipientHandle',
+      'paymailSenderHandle',
+      'paymailSenderName',
+      'paymailSignature'
     ]
   },
   cryptoOperations: {
