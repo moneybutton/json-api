@@ -24,7 +24,9 @@ const PaymentSerializer = new Serializer('payments', {
     'changeAmountSatoshis',
     'paymentOutputs',
     'rawtx',
-    'cryptoOperations'
+    'cryptoOperations',
+    'referrerUrl',
+    'browserUserAgent'
   ],
   typeForAttribute (attribute, record) {
     if (attribute === 'payments') {

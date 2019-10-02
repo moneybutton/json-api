@@ -24,7 +24,9 @@ const PaymentToBeCreatedSerializer = new Serializer('payments', {
     'changeAmountUsd',
     'changeAmountSatoshis',
     'paymentOutputs',
-    'cryptoOperations'
+    'cryptoOperations',
+    'referrerUrl',
+    'browserUserAgent'
   ],
   typeForAttribute (attribute, record) {
     if (attribute === 'payments') {
