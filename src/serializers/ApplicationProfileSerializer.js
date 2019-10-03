@@ -5,7 +5,6 @@ const ApplicationProfileSerializer = new Serializer('users', {
     'createdAt',
     'name',
     'url',
-    'name',
     'description',
     'oAuthIdentifier'
   ],
