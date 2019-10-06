@@ -76,6 +76,7 @@ const PaymentSerializer = new Serializer('payments', {
     ]
   },
   transform: function (record) {
+    const rawtx = Buffer.isBuffer(record.rawtx) ? record.rawtx.toString('hex') : record.rawtx
     return {
       ...record,
       paymentOutputs: record.paymentOutputs.map((po, index) => {
@@ -84,7 +85,8 @@ const PaymentSerializer = new Serializer('payments', {
           index: (index + 1).toString()
         }
       }),
-      cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, index: (index + 1).toString() }))
+      cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, index: (index + 1).toString() })),
+      rawtx
     }
   }
 })
