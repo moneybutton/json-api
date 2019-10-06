@@ -65,11 +65,13 @@ const PaymentSerializer = new Serializer('payments', {
     ref: 'id',
     attributes: [
       'name',
-      'action',
+      'method',
       'data',
+      'dataEncoding',
       'value',
-      'path',
-      'algorithm'
+      'key',
+      'algorithm',
+      'publicKey'
     ]
   },
   transform: function (record) {

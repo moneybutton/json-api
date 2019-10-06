@@ -67,10 +67,11 @@ const PaymentToBeCreatedSerializer = new Serializer('payments', {
       'name',
       'method',
       'data',
-      'dateEncoding',
+      'dataEncoding',
       'value',
-      'path',
-      'algorithm'
+      'key',
+      'algorithm',
+      'publicKey'
     ]
   },
   transform: function (record) {
