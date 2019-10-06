@@ -5,6 +5,7 @@ const PaymentSerializer = new Serializer('payments', {
     'createdAt',
     'userId',
     'txid',
+    'clientIdentifier',
     'normalizedTxid',
     'amount',
     'currency',
@@ -40,7 +41,7 @@ const PaymentSerializer = new Serializer('payments', {
     }
   },
   paymentOutputs: {
-    ref: 'id',
+    ref: 'index',
     attributes: [
       'createdAt',
       'to',
@@ -62,7 +63,7 @@ const PaymentSerializer = new Serializer('payments', {
     ]
   },
   cryptoOperations: {
-    ref: 'id',
+    ref: 'index',
     attributes: [
       'name',
       'method',
@@ -77,12 +78,13 @@ const PaymentSerializer = new Serializer('payments', {
   transform: function (record) {
     return {
       ...record,
-      paymentOutputs: record.paymentOutputs.map(po => {
+      paymentOutputs: record.paymentOutputs.map((po, index) => {
         return {
-          ...po
+          ...po,
+          index: (index + 1).toString()
         }
       }),
-      cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, id: index + 1 }))
+      cryptoOperations: record.cryptoOperations.map((co, index) => ({ ...co, index: (index + 1).toString() }))
     }
   }
 })
