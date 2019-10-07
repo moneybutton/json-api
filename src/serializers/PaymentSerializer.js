@@ -70,6 +70,7 @@ const PaymentSerializer = new Serializer('payments', {
       'data',
       'dataEncoding',
       'value',
+      'valueEncoding',
       'key',
       'algorithm',
       'publicKey'
