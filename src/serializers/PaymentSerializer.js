@@ -73,7 +73,8 @@ const PaymentSerializer = new Serializer('payments', {
       'valueEncoding',
       'key',
       'algorithm',
-      'publicKey'
+      'publicKey',
+      'paymail'
     ]
   },
   transform: function (record) {
