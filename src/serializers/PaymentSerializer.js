@@ -25,6 +25,9 @@ const PaymentSerializer = new Serializer('payments', {
     'changeAmountSatoshis',
     'paymentOutputs',
     'rawtx',
+    'senderSignature',
+    'signaturePubkey',
+    'senderPaymail',
     'cryptoOperations',
     'referrerUrl',
     'browserUserAgent'
