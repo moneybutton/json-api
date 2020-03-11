@@ -7,8 +7,7 @@ const SwipePermissionSerializer = new Serializer('spent-authorizations', {
     'currency',
     'authToken',
     'clientIdentifier',
-    'ownerId',
-    'clientIdentifier'
+    'ownerId'
   ]
 })
 
