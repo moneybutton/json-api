@@ -1,4 +1,5 @@
 import { Serializer } from 'jsonapi-serializer'
+import { paymentAttributes } from './PaymentSerializer'
 
 const AuthorizedPaymentSerializer = new Serializer('spent-authorizations', {
   attributes: [
@@ -24,34 +25,7 @@ const AuthorizedPaymentSerializer = new Serializer('spent-authorizations', {
   },
   paymentAttributes: {
     ref: 'index',
-    attributes: [
-      'createdAt',
-      'userId',
-      'txid',
-      'clientIdentifier',
-      'normalizedTxid',
-      'amount',
-      'currency',
-      'satoshis',
-      'status',
-      'statusDescription',
-      'buttonId',
-      'buttonData',
-      'amountUsd',
-      'inputAmountUsd',
-      'inputAmountSatoshis',
-      'spendAmountUsd',
-      'spendAmountSatoshis',
-      'feeAmountUsd',
-      'feeAmountSatoshis',
-      'changeAmountUsd',
-      'changeAmountSatoshis',
-      'paymentOutputs',
-      'rawtx',
-      'cryptoOperations',
-      'referrerUrl',
-      'browserUserAgent'
-    ]
+    attributes: paymentAttributes
   },
   cryptoOperations: {
     ref: 'index',
