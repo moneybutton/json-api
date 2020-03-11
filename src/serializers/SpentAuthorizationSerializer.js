@@ -6,8 +6,10 @@ const SpentAuthorizationsSerializer = new Serializer('spent-authorizations', {
     'amount',
     'currency',
     'authToken',
+    'clientIdentifier',
     'amountLeft',
-    'ownerId'
+    'ownerId',
+    'clientIdentifier'
   ]
 })
 
