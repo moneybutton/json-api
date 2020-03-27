@@ -24,7 +24,6 @@ const AuthorizedPaymentSerializer = new Serializer('spent-authorizations', {
     }
   },
   paymentAttributes: {
-    ref: 'index',
     attributes: paymentAttributes
   },
   cryptoOperations: {
