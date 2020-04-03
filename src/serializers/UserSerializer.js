@@ -20,7 +20,7 @@ const UserSerializer = new Serializer('users', {
     'email',
     'activeHandle'
   ],
-  typeForAttribute (attribute, record) {
+  typeForAttribute (attribute, _record) {
     if (attribute === 'users') {
       return 'users'
     } else if (attribute === 'activeHandle') {
