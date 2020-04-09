@@ -6,6 +6,7 @@ const SwipePermissionOnWalletSerializer = new Serializer('spent-authorizations-o
     'amount',
     'currency',
     'ownerId',
+    'amountLeft',
     'app'
   ],
   typeForAttribute (attribute, _record) {
