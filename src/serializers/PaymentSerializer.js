@@ -29,7 +29,8 @@ export const paymentAttributes = [
   'senderPaymail',
   'cryptoOperations',
   'referrerUrl',
-  'browserUserAgent'
+  'browserUserAgent',
+  'preserveOrder'
 ]
 
 const PaymentSerializer = new Serializer('payments', {
